@@ -11,8 +11,7 @@ import java.util.List;
 @Getter
 @Setter
 public class Member {
-    @Id
-    @GeneratedValue
+    @Id @GeneratedValue
     @Column(name = "member_id") // 그냥 두면 id로 이름이 된다.
     private Long id;
 

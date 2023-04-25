@@ -10,8 +10,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "orders") // name 지정을 안 해주면 order가 돼버린다.
-@Getter
-@Setter
+@Getter @Setter
 public class Order {
 
     @Id
@@ -19,7 +18,12 @@ public class Order {
     @Column(name = "order_id") // name으로 그냥 id로 지정해줘도 되지만 다들 이걸 선호한다.
     private Long id;
 
-    @ManyToOne // 대대일의 관계
+    @ManyToOne(fetch = FetchType.EAGER)
+    /* 다대일 관계
+     * fetch의 값은 default가 사실 이미 FecthType.EAGER다.
+     * order 조회 시 member를 join을 해서 쿼리 한 방에 같이 가져온다.
+     * 이건 em.find() 한 건 조회할 때는 그렇게 되는데
+     * JPQL select o From order o; -> SQL select * from order*/
     @JoinColumn(name = "member_id") // 매핑을 뭘로 할거냐의 의미. foreign key name이 member_id가 된다.
     private Member member;
     // 여기의 값을 세팅하면 member_id값이 다른 멤버로 변경된다.
